@@ -19,7 +19,12 @@ public class PlayerController : MonoBehaviour
     internal void KillPlayer()
     {
         Debug.Log("LOL you died noob");
-        SceneManager.LoadScene("Start");
+        LoadLevel(0);
+    }
+
+    private void LoadLevel(int v)
+    {
+        SceneManager.LoadScene(0);
     }
 
     [SerializeField]
@@ -131,7 +136,7 @@ public class PlayerController : MonoBehaviour
             dc.PlayerDied();
             /*deaths = deaths + 1;
             Debug.Log("Total Deaths: "+ deaths);*/
-            SceneManager.LoadScene("Start");
+            LoadLevel(0);
         }
     }
 }   
