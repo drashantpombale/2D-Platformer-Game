@@ -521,6 +521,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 802359261}
   player: {fileID: 802359264}
+  puk: {fileID: 0}
+  dc: {fileID: 0}
 --- !u!61 &802359264
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -618,7 +620,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.00747597, g: 0.03391875, b: 0.0754717, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

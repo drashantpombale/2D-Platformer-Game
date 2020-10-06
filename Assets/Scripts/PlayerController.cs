@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     [SerializeField]
     private Animator animator;
     [SerializeField]
@@ -15,11 +15,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     [SerializeField]
     private PickUpKeys puk;
-
+    private bool isDead=false;
     internal void KillPlayer()
     {
         Debug.Log("LOL you died noob");
-        LoadLevel(0);
+        animator.SetBool("IsDead", true);
+        isDead = true;
+      
     }
 
     private void LoadLevel(int v)
@@ -48,6 +50,8 @@ public class PlayerController : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
 
     }
+
+    // Start is called before the first frame update
     void Start()
     {}
 
@@ -55,12 +59,22 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Running and turning
-        LeftRight();
-        //Crouching
-        Crouch();
-        //Jumping
-        if(isGrounded) Jump();
+        if (!isDead)
+        {
+            //Running and turning
+            LeftRight();
+            //Crouching
+            Crouch();
+            //Jumping
+            if (isGrounded) Jump();
+        }
+        else {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                LoadLevel(0);
+            }
+        }
+        
     }
 
     void LeftRight() {
@@ -131,12 +145,10 @@ public class PlayerController : MonoBehaviour
         }
 
         else if (collision.gameObject.CompareTag("Spikes")) {
-            Debug.Log("CollisionDetected");
-            Debug.Log("YOU DIED");
             dc.PlayerDied();
             /*deaths = deaths + 1;
             Debug.Log("Total Deaths: "+ deaths);*/
-            LoadLevel(0);
+            KillPlayer();
         }
     }
 }   
