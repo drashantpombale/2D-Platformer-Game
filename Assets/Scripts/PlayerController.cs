@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private void LoadLevel(int v)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(v);
     }
 
     [SerializeField]
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         else {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                LoadLevel(0);
+                LoadLevel(1);
             }
         }
         
