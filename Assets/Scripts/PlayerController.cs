@@ -15,22 +15,27 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2d;
     [SerializeField]
     private PickUpKeys puk;
+    [SerializeField]
+    private GameOver go;
+    [SerializeField]
+    private DeathCount dc;
+
     private bool isDead=false;
     internal void KillPlayer()
     {
         Debug.Log("LOL you died noob");
         animator.SetBool("IsDead", true);
         isDead = true;
+        go.Gameover();
       
     }
 
-    private void LoadLevel(int v)
+    public void LoadLevel(int v)
     {
         SceneManager.LoadScene(v);
     }
 
-    [SerializeField]
-    private DeathCount dc;
+    
 
     internal void pickUpKey()
     {

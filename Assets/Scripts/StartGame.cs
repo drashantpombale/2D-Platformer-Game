@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartGame : MonoBehaviour
-{   
+{
+ 
     [SerializeField]
     private Button startButton;
 
