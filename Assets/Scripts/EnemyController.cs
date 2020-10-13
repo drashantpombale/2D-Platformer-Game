@@ -26,10 +26,8 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("You died");
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
-            dc.PlayerDied();
-            pc.KillPlayer();
+            pc.PlayerHurt();
         }
         else if (collision.gameObject.CompareTag("LeftWayPoint"))
         {

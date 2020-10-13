@@ -19,41 +19,28 @@ public class PlayerController : MonoBehaviour
     private GameOver go;
     [SerializeField]
     private DeathCount dc;
+    [SerializeField]
+    private HPController hp;
+
+    private int lives;
 
     private bool isDead=false;
-    internal void KillPlayer()
-    {
-        Debug.Log("LOL you died noob");
-        animator.SetBool("IsDead", true);
-        isDead = true;
-        go.Gameover();
-      
-    }
-
-    public void LoadLevel(int v)
-    {
-        SceneManager.LoadScene(v);
-    }
-
+    private bool isHurt = false;
+    private bool isFacingRight = true;
     
-
-    internal void pickUpKey()
-    {
-        Debug.Log("You picked up a key!");
-        puk.KeyPicked();
-        
-    }
-
     //private int deaths;
     private bool isGrounded;
     private void Awake()
     {
+        lives = 3;
+        dc.gameObject.SetActive(true);
+        puk.gameObject.SetActive(true);
         //deaths = 0;
         isGrounded = true;
         Debug.Log("Player Controller awake");
         player = gameObject.GetComponent<BoxCollider2D>();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
-
+        Debug.Log("You have lives: " + lives);
     }
 
     // Start is called before the first frame update
@@ -64,7 +51,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDead)
+        if (!isDead && !isHurt)
         {
             //Running and turning
             LeftRight();
@@ -82,6 +69,32 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    internal void KillPlayer()
+    {
+        Debug.Log("LOL you died noob");
+        animator.SetBool("IsDead", true);
+
+        if (isFacingRight) rb2d.AddForce(new Vector2(-1000f, 1000f));
+        else rb2d.AddForce(new Vector2(800f, 800f));
+        isDead = true;
+        go.Gameover();
+
+    }
+
+    public void LoadLevel(int v)
+    {
+        SceneManager.LoadScene(v);
+    }
+
+
+
+    internal void pickUpKey()
+    {
+        Debug.Log("You picked up a key!");
+        puk.KeyPicked();
+
+    }
+
     void LeftRight() {
         float speed = Input.GetAxis("Horizontal");
         animator.SetFloat("Speed", Mathf.Abs(speed));
@@ -92,6 +105,7 @@ public class PlayerController : MonoBehaviour
             if (speed < -0.5 && !Input.GetKey(KeyCode.LeftControl))
             {
                 transform.position += Vector3.right * 3 * speed * Time.deltaTime;
+                isFacingRight = false;
             }
         }
         else if (speed > 0)
@@ -100,6 +114,7 @@ public class PlayerController : MonoBehaviour
             if (speed > 0.5 && !Input.GetKey(KeyCode.LeftControl))
             {
                 transform.position += Vector3.right * 3 * speed * Time.deltaTime;
+                isFacingRight = true;
             }
         }
         transform.localScale = scale;
@@ -150,10 +165,28 @@ public class PlayerController : MonoBehaviour
         }
 
         else if (collision.gameObject.CompareTag("Spikes")) {
-            dc.PlayerDied();
-            /*deaths = deaths + 1;
-            Debug.Log("Total Deaths: "+ deaths);*/
+            PlayerHurt();
+        }
+    }
+
+    public void PlayerHurt() {
+        if (lives-1 == 0)
+        {
             KillPlayer();
+            hp.transform.Find("Heart" + lives).gameObject.SetActive(false);
+            dc.PlayerDied();
+        }
+
+        else {
+            isHurt = true;
+            Debug.Log("Player got hurt");
+            animator.SetTrigger("IsHurt");
+            if (isFacingRight) rb2d.AddForce(new Vector2(-800f, 800f));
+            else rb2d.AddForce(new Vector2(800f, 800f));
+            hp.transform.Find("Heart" + lives).gameObject.SetActive(false); 
+            Debug.Log("You have lives: " + lives--);
+
+            isHurt = false;
         }
     }
 }   

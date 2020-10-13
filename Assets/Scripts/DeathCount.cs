@@ -12,7 +12,7 @@ public class DeathCount : MonoBehaviour
     private static int deathcount=0;
     private void Awake()
     {
-        //PlayerPrefs.SetInt("Deaths", 0);
+        //PlayerPrefs.SetInt("Deaths", 0);=
     }
     private void Start()
     {
