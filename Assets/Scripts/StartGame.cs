@@ -10,10 +10,18 @@ public class StartGame : MonoBehaviour
  
     [SerializeField]
     private Button startButton;
+    [SerializeField]
+    private Button selectLevel;
 
     private void Awake()
     {
-        startButton.onClick.AddListener(BeginGame);    
+        startButton.onClick.AddListener(BeginGame);
+        selectLevel.onClick.AddListener(LevelSelect);
+    }
+
+    private void LevelSelect()
+    {
+        gameObject.transform.Find("LevelSelector").gameObject.SetActive(true);
     }
 
     private void BeginGame()
