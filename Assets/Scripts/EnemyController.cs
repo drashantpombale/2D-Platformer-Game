@@ -6,8 +6,6 @@ using UnityEngine.PlayerLoop;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
-    private DeathCount dc;
-    [SerializeField]
     private float speed = 0.5f;
     private Animator animator;
     private bool movingRight = true;

@@ -22,6 +22,17 @@ public class LevelSelect : MonoBehaviour
 
     private void LoadLevel()
     {
-        SceneManager.LoadScene(Level);
+        LevelStatus levelStatus = LevelManager.Instance.GetLevelStatus(Level);
+        switch(levelStatus){
+            case LevelStatus.Locked:
+                Debug.Log("Level is locked");
+                break;
+            case LevelStatus.Unlocked:
+                SceneManager.LoadScene(Level);
+                break;
+            case LevelStatus.Completed:
+                SceneManager.LoadScene(Level);
+                break;
+        }
     }
 }

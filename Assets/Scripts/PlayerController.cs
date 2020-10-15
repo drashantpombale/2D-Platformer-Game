@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameOver go;
     [SerializeField]
-    private DeathCount dc;
-    [SerializeField]
     private HPController hp;
 
     private int lives;
@@ -33,7 +31,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         lives = 3;
-        dc.gameObject.SetActive(true);
         puk.gameObject.SetActive(true);
         //deaths = 0;
         isGrounded = true;
@@ -174,7 +171,6 @@ public class PlayerController : MonoBehaviour
         {
             KillPlayer();
             hp.transform.Find("Heart" + lives).gameObject.SetActive(false);
-            dc.PlayerDied();
         }
 
         else {
