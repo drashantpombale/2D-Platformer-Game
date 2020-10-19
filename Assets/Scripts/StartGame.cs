@@ -27,5 +27,6 @@ public class StartGame : MonoBehaviour
     private void BeginGame()
     {
         SceneManager.LoadScene(1);
+        PlayerPrefs.DeleteAll();
     }
 }

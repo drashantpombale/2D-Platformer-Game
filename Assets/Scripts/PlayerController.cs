@@ -7,7 +7,6 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    
     [SerializeField]
     private Animator animator;
     [SerializeField]
@@ -25,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private bool isDead=false;
     private bool isHurt = false;
     private bool isFacingRight = true;
+    private bool isFinish = false;
     
     //private int deaths;
     private bool isGrounded;
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDead && !isHurt)
+        if (!isDead && !isHurt && !isFinish)
         {
             //Running and turning
             LeftRight();
@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
 
         if (isFacingRight) rb2d.AddForce(new Vector2(-1000f, 1000f));
         else rb2d.AddForce(new Vector2(800f, 800f));
+        gameObject.layer = 14;
         isDead = true;
         go.Gameover();
 
@@ -184,5 +185,11 @@ public class PlayerController : MonoBehaviour
 
             isHurt = false;
         }
+    }
+
+    public int GetLives() { return lives; }
+
+    public void LevelFinish() { isFinish = true;
+        gameObject.layer = 14;
     }
 }   

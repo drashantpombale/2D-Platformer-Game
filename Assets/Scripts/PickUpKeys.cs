@@ -29,4 +29,6 @@ public class PickUpKeys : MonoBehaviour
     {
         keys.text = "Keys: "+ keyscollected;
     }
+
+    public int GetKeys() { return keyscollected; }
 }
